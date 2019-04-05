@@ -1,0 +1,56 @@
+---
+title: "Base map"
+output: html_notebook
+---
+
+Get libraries
+```{r}
+library(rgdal)
+library(sp)
+library(geosphere)
+library(rgeos)
+library(tidyverse)
+```
+
+
+Get the shapefiles.  "warning = FALSE" removes a lot of warnings that return when converting the shapefile to a dataframe. 
+```{r warning=FALSE}
+
+USVI.gis <- spTransform(readOGR(dsn = "~/R/Oceans and Maps/tl_2014_78_estate",
+                               layer = "tl_2014_78_estate",
+                               verbose = FALSE),
+                       CRS("+proj=longlat +datum=WGS84"))
+
+USVI.df <- broom::tidy(USVI.gis)
+```
+
+This shows just St Croix
+```{r}
+p.1 <- ggplot() + 
+  geom_polygon(data = USVI.df,
+               aes(x = long, y = lat, group = group)) + 
+  coord_map(xlim = c(-64.93, -64.55),
+            ylim = c(17.65, 17.8)) +
+  xlab('') + ylab('')
+
+print(p.1)
+
+```
+
+
+Zoom into the SW corner of the island.
+
+```{r}
+
+p.2 <- ggplot() + 
+  geom_polygon(data = USVI.df,
+               aes(x = long, y = lat, group = group)) + 
+  coord_map(xlim = c(-64.905, -64.895),
+            ylim = c(17.672, 17.680)) +
+  xlab('') + ylab('')
+
+print(p.2)
+
+```
+
+
