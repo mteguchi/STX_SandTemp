@@ -1,0 +1,83 @@
+---
+title: "Beach temperature"
+output: html_notebook
+---
+
+This notebook tries to plot spatially interpolated sand temperature at Sandy Point using data from 2010 and 2011. 
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+```
+
+
+Do this one step at a time.  I'll bring in temperature logger deployment data and find those that match temporally. Unfortunately for 2011, temperature data have two different date formats as well as some additional information in separate columns - these are added after the files were crated. So, I have to clean the files before the following chunk can be run.  
+
+```{r}
+yr <- 2010
+date.loggers <- read_csv(file = paste0("data/Datalogger Summary ", yr, ".csv"),
+                         col_types = cols(SerialNumber = col_character(),
+                                          DateDeployed = col_date(format = "%m/%d/%Y"),
+                                          DateOut = col_date(format = "%m/%d/%Y")))
+
+data.files <- dir(path = paste0("data/Temperature Data ", yr), 
+                  pattern = ".csv")
+
+out.list <- vector(mode = "list", length = length(data.files))
+
+k <- 1
+for (k in 1:length(data.files)){
+  out.list[[k]] <- read_csv(file = paste0("data/Temperature Data ", yr, "/",
+                                          data.files[k]),
+                            col_names = c("LineID","DateTime_GMTminus4",
+                                          "Temp_C","Batt_V", 
+                                          "CouplerDetached", "CouplerAttached",
+                                          "HostConnected", "Stopped", "EndOfFile"),
+                            col_types = cols(LineID = col_integer(),
+                                             DateTime_GMTminus4 = col_datetime(format = "%m/%d/%y %I:%M:%S %p"),
+                                             Temp_C = col_double(),
+                                             Batt_V = col_double(),
+                                             CouplerDetached = col_character(),
+                                             CouplerAttached = col_character(),
+                                             HostConnected = col_character(),
+                                             Stopped = col_character(),
+                                             EndOfFile = col_character()),
+                            skip = 2) %>%
+    select(DateTime_GMTminus4, Temp_C, Batt_V) %>%
+    mutate(SerialNumber = str_split(data.files[k], ".csv")[[1]][1])
+} 
+
+temp.data.df <- do.call(rbind, out.list)
+
+```
+
+Also, find the location of these loggers.
+```{r}
+location.df <- read_csv(file = paste0("data/NestSand ", yr, " Location_out.txt"),
+                        col_names = c("SerialNumber", "Stake1",
+                                      "Stake2", "Dist1", "Dist2",
+                                      "Latitude", "Longitude", "Unknown"),
+                        col_types = cols(SerialNumber = col_character(),
+                                         Stake1 = col_integer(),
+                                         Stake2 = col_integer(),
+                                         Dist1 = col_double(),
+                                         Dist2 = col_double(),
+                                         Latitude = col_double(),
+                                         Longitude = col_double(),
+                                         Unknown = col_double()),
+                        skip = 3) %>%
+  select(SerialNumber, Latitude, Longitude)
+
+```
+
+
+Then, combine these two together so they are in one dataframe.
+
+```{r}
+temp.data.df %>% left_join(location.df, by = "SerialNumber") -> all.data
+
+
+```
+
+
+
