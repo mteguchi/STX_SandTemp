@@ -45,8 +45,8 @@ Zoom into the SW corner of the island.
 p.2 <- ggplot() + 
   geom_polygon(data = USVI.df,
                aes(x = long, y = lat, group = group)) + 
-  coord_map(xlim = c(-64.905, -64.895),
-            ylim = c(17.672, 17.680)) +
+  coord_map(xlim = c(-64.905, -64.891),
+            ylim = c(17.673, 17.682)) +
   xlab('') + ylab('')
 
 print(p.2)

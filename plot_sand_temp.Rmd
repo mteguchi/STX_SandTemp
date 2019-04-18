@@ -71,12 +71,62 @@ location.df <- read_csv(file = paste0("data/NestSand ", yr, " Location_out.txt")
 ```
 
 
-Then, combine these two together so they are in one dataframe.
+Then, combine these two together so they are in one dataframe and extract locations of unique loggers.
 
 ```{r}
 temp.data.df %>% left_join(location.df, by = "SerialNumber") -> all.data
 
+all.data %>%
+  group_by(SerialNumber) %>%
+  filter(DateTime_GMTminus4 == min(DateTime_GMTminus4)) %>%
+  na.omit() %>%
+  rowid_to_column(var = "ID")  -> location.data
 
+```
+
+Plot to see what they look like
+
+```{r}
+p1 <- ggplot(data = location.data) + 
+  geom_text(aes(x = Longitude, y = Latitude, label = ID)) + 
+  coord_map()
+
+p1
+```
+
+So, I see some duplicated locations... I need to find which ones should be used. how do I do that?  Pair-wise distances?  
+
+```{r}
+selected.ID <- numeric()
+#location.data0 <- location.data
+k <- 1
+for (k in 1:nrow(location.data)){
+  dist <- geosphere::distm(location.data[k, c("Longitude", "Latitude")],
+                           location.data[,  c("Longitude", "Latitude")])
+  
+  location.data0 <- na.omit(location.data[dist < 10 & dist > 0,])
+  #minD <- min(dist, na.rm = T)
+  
+  selected.ID <- c(selected.ID, location.data0$ID)
+
+}
+
+remove.IDs <- unique(selected.ID)
+
+location.data1 <- location.data[-remove.IDs,] 
+
+
+```
+
+See how it did
+
+```{r}
+p2 <- p1 +  
+  geom_text(data = location.data1,
+            aes(x = Longitude, y = Latitude, label = ID),
+            color = "red") 
+
+p2
 ```
 
 
