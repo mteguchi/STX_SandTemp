@@ -1,0 +1,448 @@
+---
+title: "ISTS 2020 Analysis"
+author: "Shreya"
+date: "1/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lubridate)
+library(tidyverse)
+data.dir <- "data/Temperature Data 2019/"
+```
+
+## Scatter plot of hatch success vs mean temp from d20-d40 of incubation
+### calculate mean temps from d20-d40
+Need to delete first row of csv that is title to csv
+```{r}
+#setwd("C:/Users/shrey/OneDrive/Documents/ISTS2020/temp data converted")
+#require("lubridate")
+
+
+ACTID <- "8036"
+d20 <- "2019-06-05"
+d40 <- "2019-06-25"
+logger <- "10004497"
+
+df <- read.csv(paste(data.dir, logger,"_2019-12-04.csv", sep=""),
+               header = F)
+
+colnames(df) <- c("ID", "date", "temp", "X1", "X2")
+
+df %>% select(date, temp) %>%
+  mutate(date = as.Date(date, format = "%m/%d/%y %H:%M:%S",
+                        origin = "1900-01-01")) -> df2
+  
+  mutate(date = as.Date())
+df[,1] <- mdy_hm(df[,1])
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- c()
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- c()
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+ACTID <- "7863"
+d20 <- "2019-05-18"
+d40 <- "2019-06-07"
+logger <- "10004489"
+df <- read.csv(paste(logger,"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+df$Date.Time..GMT.07.00 <- mdy_hm(df$Date.Time..GMT.07.00)
+colnames(df) <- c("date", "temp")
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+ACTID <- "7859"
+d20 <- "2019-05-17"
+d40 <- "2019-06-06"
+logger <- "10004485"
+df <- read.csv(paste(logger,"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+df$Date.Time..GMT.07.00 <- mdy_hm(df$Date.Time..GMT.07.00)
+colnames(df) <- c("date", "temp")
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+ACTID <- "7862"
+d20 <- "2019-05-18"
+d40 <- "2019-06-07"
+logger <- "10004468"
+df <- read.csv(paste(logger,"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+df$Date.Time..GMT.07.00 <- mdy_hm(df$Date.Time..GMT.07.00)
+colnames(df) <- c("date", "temp")
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+
+ACTID <- "8066"
+d20 <- "2019-07-04"
+d40 <- "2019-07-24"
+logger <- "10004494"
+df <- read.csv(paste(logger,"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+df$Date.Time..GMT.07.00 <- mdy_hm(df$Date.Time..GMT.07.00)
+colnames(df) <- c("date", "temp")
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+ACTID <- "8056"
+d20 <- "2019-06-25"
+d40 <- "2019-07-15"
+logger <- "10004507"
+df <- read.csv(paste(logger,"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+df$Date.Time..GMT.07.00 <- mdy_hm(df$Date.Time..GMT.07.00)
+colnames(df) <- c("date", "temp")
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+ACTID <- "7860"
+d20 <- "2019-05-18"
+d40 <- "2019-06-07"
+logger <- "10004493"
+df <- read.csv(paste(logger,"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+df$Date.Time..GMT.07.00 <- mdy_hm(df$Date.Time..GMT.07.00)
+colnames(df) <- c("date", "temp")
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(d20))
+df <- subset(df, df$date < as.Date(d40))
+meantemp <- mean(df$temp)
+Activity <- append(Activity, ACTID, after=length(Activity))
+d20d40temp <- append(d20d40temp, meantemp, after=length(d20d40temp))
+
+df <- cbind(Activity, d20d40temp)
+write.csv(df, "mid_incubation_temps.csv")
+```
+### Calculate hatch success
+will calculate as hatched shells divided by total number of eggs (excluding yolkeless eggs and unknowns)
+```{r}
+hatch <- read.csv("C:/Users/shrey/OneDrive/Documents/ISTS2020/Logger_ID_location.csv")
+hatch <- hatch[c(1:7),c(1, 13:23)]
+hatch$dead <- hatch$Full.Term.Pipped..Dead. +hatch$Full.Term.Unpipped..Dead.+ hatch$Mid.Pig.Body +hatch$Mid.Pig.Body.1 +hatch$Pre.midterm..pigmented.eye.+hatch$Undeveloped + hatch$Unfertilized
+hatch$survived <- hatch$Hatched.Shells + hatch$Full.Term.Pipped..Live. + hatch$Full.Term.Unpipped..Live.
+hatch$success_rate <- hatch$survived/(hatch$survived + hatch$dead)
+hatch$success_rate <- hatch$success_rate*100
+```
+### plot middle incubation mean nest tmep with hatch success
+```{r}
+#d20d40temp <- read.csv("C:/Users/shrey/OneDrive/Documents/ISTS2020/temp data converted/mid_incubation_temps.csv")
+#d20d40temp <- d20d40temp[,-1]
+#colnames(d20d40temp)[1] <- "Activity.ID"
+#hatch_temp <- merge(hatch, d20d40temp)
+#write.csv(hatch_temp, file= "hatch_temp.csv", row.names = F)
+hatch_temp <- read.csv("data/hatch_temp.csv")
+plot(hatch_temp$d20d40temp, hatch_temp$success_rate)
+require(ggplot2)
+x <- ggplot(hatch_temp, 
+            aes(d20d40temp, success_rate)) +
+  geom_point(size=10) +
+  xlab("Mean nest temperature during transitional range of temperature (Celsuis)") + 
+  ylab("Hatch success (%)") +
+  theme_classic(base_size = 20) +
+  scale_x_continuous(breaks = round(seq(min(hatch_temp$d20d40temp), 
+                                        max(hatch_temp$d20d40temp), 
+                                        by = 0.5),1)) + 
+  theme(axis.text = element_text(size = 30))    
+x
+```
+## fitting a polynomial regression
+```{r}
+#arcsine transformation for percentage data
+#add 0.0001 to all data because zeros can mess up transformations
+y <- hatch_temp$success_rate + 0.0001
+arcsin <- asin(sqrt(y/100)) 
+model1<- lm(arcsin ~ poly(hatch_temp$d20d40temp))
+summary(model1)
+#Adjusted R-squared:  0.03346  p-value: 0.3219
+#add 0.0001 to all values to make log transformation work (don't want log0) 
+loghatch <- log(hatch_temp$success_rate + 0.0001)
+model2 <- lm(loghatch ~ poly(hatch_temp$d20d40temp))
+summary(model2) 
+#Adjusted R-squared:  0.1004  p-value: 0.2528
+model3 <- lm(loghatch ~ poly(log(hatch_temp$d20d40temp)))
+summary(model3) 
+#Adjusted R-squared:  0.1095 p-value: 0.2446
+```
+
+fit Michaelis-Menten function? Not working well as of Feb 12, 2020... 
+Need to find a good function... 
+```{r}
+library(jagsUI)
+library(bayesplot)
+MCMC.params <- list(n.samples = 150000,
+                    n.burnin = 50000,
+                    n.thin = 5,
+                    n.chains = 3, 
+                    model.file = "models/Model_model1.txt")
+
+jags.data <- list(y = arcsin,
+                  x = hatch_temp$d20d40temp - min(hatch_temp$d20d40temp),
+                  n = length(arcsin))
+
+parameters <- c("a", "b", "sd")
+jm.out <- jags(data = jags.data,
+                  #inits = inits,
+                  parameters.to.save= parameters,
+                  model.file = MCMC.params$model.file,
+                  n.chains = MCMC.params$n.chains,
+                  n.burnin = MCMC.params$n.burnin,
+                  n.thin = MCMC.params$n.thin,
+                  n.iter = MCMC.params$n.samples,
+                  DIC = T, 
+                  parallel=T)
+
+
+mcmc_dens(jm.out$samples, c("a", "b",  "sd"))
+
+```
+
+```{r}
+xvals <- seq(from = 0, to = max(jags.data$x), by = 0.01)
+fit <- jm.out$mean$a * (1 - exp(-jm.out$mean$b * xvals))
+fit.2.5 <- jm.out$q2.5$a * (1 - exp(-jm.out$q2.5$b * xvals))
+fit.97.5 <- jm.out$q97.5$a * (1 - exp(-jm.out$q97.5$b * xvals))
+
+df1 <- data.frame(x = jags.data$x,
+                  y = jags.data$y)
+df2 <- data.frame(x = xvals,
+                  mean = fit,
+                  low = fit.2.5,
+                  high = fit.97.5)
+
+p1 <- ggplot()    +
+  geom_ribbon(data = df2,
+              aes(x = x, ymin = low, ymax = high),
+              fill = "coral", alpha = 0.7)+
+  geom_path(data = df2, 
+            aes(x = x, y = mean), color = "red",
+            size = 1) +
+  geom_point(data = df1, 
+             aes(x = x, y = y))
+
+p1
+#ggsave(p1, filename = "figures/vonB_fit.png", dpi = 600, device = "png")
+```
+
+
+## Map of temp loggers
+load mapping packages
+```{r}
+require(cowplot)
+require(googleway)
+require(ggplot2)
+require(ggrepel)
+require(ggspatial)
+require(libwgeom)
+require(sf)
+require(rnaturalearth)
+require(rnaturalearthdata)
+#black and white background for ggplot
+theme_set(theme_bw())
+world <- ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+ggplot(data = world) + geom_sf()
+USVI <- subset(world, world$su_a3 == "VIR")
+VI2 <- ne_coastline(scale=110, returnclass = "sf")
+ggplot(data = VI2) + geom_sf()
+
+```
+that was terrible
+next
+```{r}
+library(maptools)
+library(raster)
+library(plyr)
+library(ggplot2)
+library(rgdal)
+
+VI <-getData("GADM", country="VI", level=0)
+plot(VI)
+ggplot() +   geom_polygon(data = VI, aes(x = long, y = lat))
+
+```
+this was arguably worse
+next
+```{r}
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(mapdata)
+states <- map_data("state")
+w2hr <- map_data("world2Hires")
+VI <- subset(w2hr, w2hr$region == "Virgin Islands")
+ggplot() + geom_polygon(data = VI, aes(x=long, y = lat, group = group)) 
+```
+okay quit and downloaded arcmap...
+
+
+## Format data to get a set of GPS points with nest vs sand and mean temp for map
+Strategy
+1) need to cut each temp set to start at deployment date and end at recovery date for nests and 8/01 for sand (end of nesting season)
+2) can this be done as a loop??- yes
+
+```{r}
+deploy <- read.csv("C:/Users/shrey/OneDrive/Documents/ISTS2020/Logger_ID_location_deployment.csv")
+#get rid of points with no gps
+deploy <- subset(deploy, deploy$W != "NA")
+#get rid of loggers that are lost
+deploy <- subset(deploy, deploy$Reason != "LOST FOR NOW")
+#also I am for some reason missing data from logger 10178134
+deploy <- subset(deploy, deploy$Logger.ID != "10178134")
+# also missing data from 10178135 and 10178123
+deploy <- subset(deploy, deploy$Logger.ID != "10178135")
+deploy <- subset(deploy, deploy$Logger.ID != "10178123")
+require(tidyverse)
+require(dplyr)
+require(stringr)
+deploy <- deploy %>% mutate(Date.recovered = str_replace(Date.recovered, "unknown", "8/01/19"))
+#don't want to include september temps in study for consistency
+deploy <- deploy %>% mutate(Date.recovered = str_replace(Date.recovered, "9/26/2019", "8/01/19"))
+#set MID Season as 6/19 based on hobo plot
+deploy <- deploy %>% mutate(Date.recovered = str_replace(Date.recovered, "MID SEASON", "6/17/19"))
+require("lubridate")
+deploy$Date.deployed <- mdy(deploy$Date.deployed)
+deploy$Date.recovered <- mdy(deploy$Date.recovered)
+logger <- deploy$Logger.ID
+start <- deploy$Date.deployed
+recover <- deploy$Date.recovered
+meantemp <- c()
+```
+
+
+```{r}
+for (i in 1:19)
+{
+df <- read.csv(paste("C:/Users/shrey/OneDrive/Documents/ISTS2020/temp data converted/",logger[i],"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+colnames(df) <- c("date", "temp")
+df$date <- mdy_hm(df$date)
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(start[i]))
+df <- subset(df, df$date < as.Date(recover[i]))
+meantemp[i] <- mean(df$temp)
+}
+```
+
+
+```{r}
+setwd("C:/Users/shrey/OneDrive/Documents/ISTS2020/")
+ArcGIS_input <- cbind(deploy, round(meantemp, digits=3))
+colnames(ArcGIS_input)[12] <- "meantemp"
+write.csv(ArcGIS_input, "ArcGIS_input.csv", row.names=F)
+```
+
+## loops for monthly means
+just use sand loggers
+```{r}
+deploy <- subset(deploy, deploy$Type != "Nest")
+logger <- deploy$Logger.ID
+start <- deploy$Date.deployed
+recover <- deploy$Date.recovered
+```
+
+start date in late APril until June 1st (so mostly May)
+```{r}
+maytemp <- c()
+for (i in 1:12)
+{
+df <- read.csv(paste("C:/Users/shrey/OneDrive/Documents/ISTS2020/temp data converted/",logger[i],"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+colnames(df) <- c("date", "temp")
+df$date <- mdy_hm(df$date)
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(start[i]))
+df <- subset(df, df$date < as.Date(recover[i]))
+df <- subset(df, df$date < as.Date("2019-06-01"))
+maytemp[i] <- mean(df$temp)
+}
+#two loggers deployed in JUne so May means are NA
+setwd("C:/Users/shrey/OneDrive/Documents/ISTS2020/")
+ArcGISMay_input <- cbind(deploy, round(maytemp, digits=3))
+colnames(ArcGISMay_input)[12] <- "meantemp"
+ArcGISMay_input <- subset(ArcGISMay_input, ArcGISMay_input$meantemp != "NaN")
+write.csv(ArcGISMay_input, "ArcGIS_May_input.csv", row.names=F)
+```
+June temps
+```{r}
+junetemp <- c()
+for (i in 1:12)
+{
+df <- read.csv(paste("C:/Users/shrey/OneDrive/Documents/ISTS2020/temp data converted/",logger[i],"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+colnames(df) <- c("date", "temp")
+df$date <- mdy_hm(df$date)
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(start[i]))
+df <- subset(df, df$date < as.Date(recover[i]))
+df <- subset(df, df$date > as.Date("2019-05-31"))
+df <- subset(df, df$date < as.Date("2019-07-01"))
+junetemp[i] <- mean(df$temp)
+}
+
+setwd("C:/Users/shrey/OneDrive/Documents/ISTS2020/")
+ArcGISJune_input <- cbind(deploy, round(junetemp, digits=3))
+colnames(ArcGISJune_input)[12] <- "meantemp"
+ArcGISJune_input <- subset(ArcGISJune_input, ArcGISJune_input$meantemp != "NaN")
+write.csv(ArcGISJune_input, "ArcGIS_June_input.csv", row.names=F)
+```
+july temps
+```{r}
+julytemp <- c()
+for (i in 1:12)
+{
+df <- read.csv(paste("C:/Users/shrey/OneDrive/Documents/ISTS2020/temp data converted/",logger[i],"_2019-12-04.csv", sep=""))
+df <- df[,c(2,3)]
+colnames(df) <- c("date", "temp")
+df$date <- mdy_hm(df$date)
+df$date <- as.Date(df$date)
+df <- subset(df, df$date > as.Date(start[i]))
+df <- subset(df, df$date < as.Date(recover[i]))
+df <- subset(df, df$date > as.Date("2019-06-30"))
+df <- subset(df, df$date < as.Date("2019-08-01"))
+julytemp[i] <- mean(df$temp)
+}
+
+setwd("C:/Users/shrey/OneDrive/Documents/ISTS2020/")
+ArcGISJuly_input <- cbind(deploy, round(julytemp, digits=3))
+colnames(ArcGISJuly_input)[12] <- "meantemp"
+ArcGISJuly_input <- subset(ArcGISJuly_input, ArcGISJuly_input$meantemp != "NaN")
+write.csv(ArcGISJuly_input, "ArcGIS_July_input.csv", row.names=F)
+```
+now use monthly means to make three panel Idw maps and use emily's color scale!
+check minimum and maximum temps to decide color scale
+```{r}
+x <- c(maytemp, junetemp, julytemp)
+x <- x[x!="NaN"]
+length(x)
+min(x)
+#[1] 28.27847
+max(x)
+#[1] 31.54892
+```
+
