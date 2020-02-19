@@ -190,7 +190,7 @@ summary(model3)
 #Adjusted R-squared:  0.1095 p-value: 0.2446
 ```
 
-fit Michaelis-Menten function? Not working well as of Feb 12, 2020... 
+
 Need to find a good function... 
 ```{r}
 library(jagsUI)
