@@ -1,0 +1,17 @@
+model{
+	for (k in 1:n){
+
+		mean.y[k] <- a * (1 - exp(-b * x[k]))
+		y[k] ~ dnorm(mean.y[k], tau)
+
+	}
+	
+	sd <- sqrt(1/tau)
+
+	tau ~ dgamma(0.1, 0.01)
+
+	a ~ dnorm(0, 0.1)
+	b ~ dnorm(0, 0.1)
+	#c ~ dnorm(0, 0.1)
+	#d ~ dnorm(0, 0.1)
+}
